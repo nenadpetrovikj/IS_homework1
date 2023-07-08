@@ -1,0 +1,114 @@
+﻿@model Cinema.Domain.SpecialCollectionClass
+
+@{ ViewData["Title"] = "Index";
+   Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="container">
+    @*<div class="m-3">
+        <a class="btn btn-success" asp-action="Create" asp-controller="Tickets">Add New</a>
+    </div>*@
+
+    <div class="col-md-auto">
+        <h1 class="font-weight-normal">Filter tickets by validity</h1>
+
+    </div>
+    <div>
+        <form class="form-group">
+            <div class="card-body">
+                <div class="row justify-content-center">
+
+                    <div class="col-md-auto">
+                        <label>From date:</label>&nbsp;
+                        <input id="fromDate" type="text" asp-for="FromDate" class="datePicker" required />
+                    </div>
+                    <div class="col-md-auto">
+                        <label>To date:</label>&nbsp;
+                        <input id="toDate" type="text" asp-for="ToDate" class="datePicker" required />
+                    </div>
+                    <div class="col-md-auto">
+                        <button class="btn btn-info btn-sm" type="submit">Search</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div id="content">
+            <partial name="_IndexFilter.cshtml" model="Model.SearchResults" />
+        </div>
+
+        @section Scripts{
+            <script>
+        function ApplyDateFilter(e) {
+            e.preventDefault();
+            var from = $("#fromDate").val();
+            var to = $("#toDate").val();
+            var type = $("#searchTypeSelection").val();
+            var text = $("#searchText").val();
+            debugger;
+            $.ajax({
+                type: "Get",
+                url: '@Url.Action("IndexFilter", "Archives")',
+                data: ,
+                {
+                    FromDate: from,
+                    ToDate: to,
+                    SearchType: type,
+                    SearchText: text
+                },
+                contentType: "application/json",
+                success: function (response) {
+                    $("#content").html(""); 
+                    $("#content").html(response); 
+                }
+            });
+        }
+            </script>
+        }
+    </div>
+
+</div>
+@*
+    @model List<Cinema.Domain.DomainModels.Ticket>
+
+    @{
+        ViewData["Title"] = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <div class="container">
+        <div class="m-3">
+            <a class="btn btn-success" asp-controller="Tickets" asp-action="Create">Add new Ticket</a>
+
+        </div>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            var item = Model[i];
+            if (i % 3 == 0)
+            {
+                @: <div class="row">
+                }
+                <div class="container">Available tickets</div>
+                <div class="col-md-3 m-4">
+                    <div class="card" style="width:18rem; height:15rem;">
+                        <div class="card-body">
+                            <h3 class="card-title">@item.Title</h3>
+                            <p class="card-text">Date: @item.Date</p>
+                            <h6>Ticket: @item.TicketPrice</h6>
+                        </div>
+
+                        <div class="card-footer">
+                            <a asp-controller="Tickets" asp-action="AddTicketToCard" asp-route-id="@item.Id" class="btn btn-info">Add to Cart</a>
+                            <a asp-controller="Tickets" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary">Edit</a>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            }
+    </div>
+    </div>
+
+*@

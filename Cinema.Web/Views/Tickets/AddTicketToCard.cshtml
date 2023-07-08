@@ -1,0 +1,31 @@
+﻿
+@model Cinema.Domain.DTO.AddToShoppingCardDto
+
+@{
+    ViewData["Title"] = "Add To Shooping Card";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Add Selected Ticket to User Shopping Card</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4 m-auto">
+        <form asp-action="AddTicketToCard" method="post">
+            <input type="hidden" asp-for="TicketId" />
+            <div class="form-group">
+                <label asp-for="SelectedTicket.Title"></label>
+                <input disabled asp-for="SelectedTicket.Title" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Quantity"></label>
+                <input asp-for="Quantity" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>
